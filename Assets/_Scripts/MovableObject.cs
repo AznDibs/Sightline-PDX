@@ -56,7 +56,7 @@ public abstract class MovableObject : MonoBehaviour
     {
         //Update move first
         bool hasMoveDir = moveDir.magnitude > 0;
-        bool hasMovePos = (movePos - GetGameObjectPos(moveObject.gameObject)).magnitude > moveDeadZone;
+        bool hasMovePos = movePos.magnitude > 0 && (movePos - GetGameObjectPos(moveObject.gameObject)).magnitude > moveDeadZone;
 
 
         Vector2 newDir = new Vector2(0,0);
@@ -73,7 +73,11 @@ public abstract class MovableObject : MonoBehaviour
         }
 
         if (moveAffectsLook && (hasMoveDir || hasMovePos)) lookDir = hasMoveDir ? moveDir : newDir;
-        if (lookDir.magnitude > 0) moveObject.MoveRotation(Mathf.Rad2Deg * Mathf.Atan2(lookDir.x, lookDir.y));
+
+		if (lookDir.magnitude > 0)
+		{
+			moveObject.MoveRotation(Mathf.Rad2Deg * Mathf.Atan2(-lookDir.x, lookDir.y));
+		}
     }
 
     public abstract void Start();
