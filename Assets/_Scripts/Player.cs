@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MovableObject
 {
-    // Start is called before the first frame update
-    public override void Start()
+	
+	// Start is called before the first frame update
+	public override void Start()
     {
 		Init(gameObject.GetComponent<Rigidbody2D>());
     }
@@ -15,7 +16,13 @@ public class Player : MovableObject
     {
 		Vector2 inputDirection = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
 		SetMoveDir(inputDirection.normalized);
-		SetLookPos(new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
-		MoveUpdate();
+		Vector2 mousePos = Input.mousePosition - new Vector3(Screen.width/2,Screen.height/2,0);
+		SetLookDir(mousePos);
+		
     }
+
+	public void FixedUpdate()
+	{
+		MoveUpdate();
+	}
 }
