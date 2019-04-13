@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MovableObject
+public abstract class MovableObject : MonoBehaviour
 {
     public Rigidbody2D moveObject;
     public float moveSpeed = 1f;
@@ -75,5 +75,9 @@ public abstract class MovableObject
         if (moveAffectsLook && (hasMoveDir || hasMovePos)) lookDir = hasMoveDir ? moveDir : newDir;
         if (lookDir.magnitude > 0) moveObject.MoveRotation(Mathf.Rad2Deg * Mathf.Atan2(lookDir.x, lookDir.y));
     }
+
+    public abstract void Start();
+
+    public abstract void Update();
 
 }
