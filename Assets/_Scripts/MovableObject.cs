@@ -15,7 +15,7 @@ public abstract class MovableObject : MonoBehaviour
     private Vector2 moveDir = new Vector2(0,0);
     private Vector2 movePos = new Vector2(0,0);
 
-    private void Init(Rigidbody2D rb)
+    public void Init(Rigidbody2D rb) //fuck you gabe
     {
         moveObject = rb;
     }
