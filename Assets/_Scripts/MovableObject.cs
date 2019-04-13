@@ -62,11 +62,11 @@ public abstract class MovableObject : MonoBehaviour
         Vector2 newDir = new Vector2(0,0);
         if (hasMoveDir)
         {
-            moveObject.AddForce(moveDir * moveSpeed, ForceMode2D.Impulse);
+            moveObject.velocity = moveDir * moveSpeed;
         } else if (hasMovePos)
         {
             newDir = new Vector2(movePos.x - moveObject.position.x, movePos.y - moveObject.position.y).normalized;
-            moveObject.AddForce(newDir * moveSpeed, ForceMode2D.Impulse);
+            moveObject.velocity = newDir * moveSpeed;
         } else
         {
             moveObject.velocity = new Vector2(0,0);
