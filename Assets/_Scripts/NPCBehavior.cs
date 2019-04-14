@@ -6,11 +6,11 @@ public class NPCBehavior : MovableObject
 {
 
     private bool isWaiting = false;
-
+	public Vector2 moveRange = new Vector2(2.5f,2.5f);
     IEnumerator Wait(float time)
     {
 
-        Vector2 newMovePos = new Vector2(Random.Range(0f, 2.5f), Random.Range(0f, 2.5f));
+        Vector2 newMovePos = new Vector2(Random.Range(0f, moveRange.x), Random.Range(0f, moveRange.y));
         yield return new WaitForSeconds(time);
         SetLookDir((newMovePos - GetGameObjectPos(moveObject.gameObject)).normalized);
         yield return new WaitForSeconds(time);

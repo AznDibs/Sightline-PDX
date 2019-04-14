@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 67532551}
   - component: {fileID: 67532550}
   - component: {fileID: 67532549}
+  - component: {fileID: 67532553}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -244,6 +245,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &67532553
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67532548}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.56, y: 2.56}
+  m_EdgeRadius: 0
 --- !u!1 &103098984
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +852,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1738695577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3265522896741927646, guid: 4da192cfc5a18414e9fbc8e1cca18305,
+    type: 3}
+  m_PrefabInstance: {fileID: 1824484445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1738695582
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738695577}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.375, y: 1.375}
+    newSize: {x: 1.375, y: 1.375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.375, y: 1.375}
+  m_EdgeRadius: 0
 --- !u!1001 &1824484445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -933,6 +992,18 @@ PrefabInstance:
       propertyPath: moveAffectsLook
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3265522895698215348, guid: 4da192cfc5a18414e9fbc8e1cca18305,
+        type: 3}
+      propertyPath: deatheffect
+      value: 
+      objectReference: {fileID: 4225740054636621684, guid: 1ff3c16d9e10eff45b6c6a07b9dd116e,
+        type: 3}
+    - target: {fileID: 3265522895698215348, guid: 4da192cfc5a18414e9fbc8e1cca18305,
+        type: 3}
+      propertyPath: death
+      value: 
+      objectReference: {fileID: 21300000, guid: 56fa010242552a84cb1ecdba9bd83116,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da192cfc5a18414e9fbc8e1cca18305, type: 3}
 --- !u!1 &1859537895
@@ -966,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273ff1ced96dd6142bf77e08f66f51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 67532552}
+  player: {fileID: 0}
 --- !u!81 &1859537897
 AudioListener:
   m_ObjectHideFlags: 0
