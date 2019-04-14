@@ -10,10 +10,10 @@ public abstract class MovableObject : MonoBehaviour
     public bool moveAffectsLook; //true: lookdir dependent on movedir,if movedir's magnitude is nonzero. false: lookdir and movedir are independent
     public float moveDeadZone = 1f;
 
-    private Vector2 lookDir = new Vector2(0,0);
-    private Vector2 lookPos = new Vector2(0,0);
-    private Vector2 moveDir = new Vector2(0,0);
-    private Vector2 movePos = new Vector2(0,0);
+    [HideInInspector] public Vector2 lookDir = new Vector2(0,0);
+    [HideInInspector] public Vector2 lookPos = new Vector2(0,0);
+    [HideInInspector] public Vector2 moveDir = new Vector2(0,0);
+    public Vector2 movePos = new Vector2(0,0);
 
     public void Init(Rigidbody2D rb) //fuck you gabe
     {
