@@ -9,8 +9,8 @@ public class NPCBehavior : MovableObject
 
     IEnumerator Wait(float time)
     {
-        isWaiting = true;
         yield return new WaitForSeconds(time);
+        SetMovePos(new Vector2(Random.Range(0f, 2.5f), Random.Range(0f, 2.5f)));
         isWaiting = false;
     }
 
@@ -70,8 +70,9 @@ public class NPCBehavior : MovableObject
         if (movePos.magnitude == 0 && !isWaiting)
         {
             //SetLookDir = new Vector2
+            isWaiting = true;
             StartCoroutine(Wait(2));
-            SetMovePos(new Vector2(Random.Range(0f, 2.5f), Random.Range(0f, 2.5f)));
+            
         }
         MoveUpdate();
     }
