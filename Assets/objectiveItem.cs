@@ -5,6 +5,7 @@ using UnityEngine;
 public class objectiveItem : MonoBehaviour
 {
 	public int ItemID = 0;
+
     public void OnTriggerEnter2D(Collider2D col)
 	{
 		if(col.CompareTag("Player"))
