@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MovableObject
 {
 	public Slider slider;
+	public Slider healthSlider;
+	public Slider moneySlider;
+
 	public GameObject finger;
 	public bool canAndWillFingerCircle = false;
 	public bool fingerCircleOut = false;
@@ -13,15 +17,47 @@ public class Player : MovableObject
 	public float maxStamina = 10f;
 	public float stamina = 10f;
 
+	public ArrayList items;
+
+	public float maxMoney = 1000000f;
+	public float money = 0;
+
+	public float maxHealth = 100f;
+	public float health = 100f;
+
 	public float staminaDecay = .2f;
 	public float staminaRegen = 1f;
 	// Start is called before the first frame update
+
+	public void TakeSomeHurts(float f)
+	{
+		health -= f;
+		healthSlider.value = health;
+	}
+
+	public void GiveMoney(float amount)
+	{
+		money += amount;
+		moneySlider.value = money;
+	}
+
+	public void GiveItem(int ID)
+	{
+		items.Add(ID);
+	}
+	
 	public override void Start()
     {
 		Init(gameObject.GetComponent<Rigidbody2D>());
 		StartCoroutine(regenerate());
 		slider.maxValue = maxStamina;
-		finger.SetActive(false);
+
+		healthSlider.maxValue = maxHealth;
+		healthSlider.value = health;
+
+		moneySlider.maxValue = maxMoney;
+		moneySlider.value = money;
+		finger.SetActive(false);	
     }
 
     // Update is called once per frame
@@ -46,6 +82,12 @@ public class Player : MovableObject
 		SetLookDir(mousePos);
 
 		slider.value = stamina;
+
+		if(health <= 0)
+		{
+			SceneManager.LoadScene(2);
+		}
+
 	}
 
 	public void FixedUpdate()

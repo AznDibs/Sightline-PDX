@@ -4,8 +4,23 @@ using UnityEngine;
 
 public class SeePersonScript : MonoBehaviour
 {
+	public GameObject dropOnDeath;
 	public Sprite death;
+	public float damage = 10f;
+	private bool damageWait = false;
+	public float damageDelay = 1f;
 
+	NPCBehavior parent;
+
+	public void Start()
+	{
+		parent = transform.parent.GetComponent<NPCBehavior>();
+	}
+	IEnumerator DamageDelay()
+	{
+		yield return new WaitForSeconds(damageDelay);
+		damageWait = false;
+	}
     public void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -15,16 +30,35 @@ public class SeePersonScript : MonoBehaviour
 			{
 				Die();
 			}
+			else if(!damageWait)
+			{
+				parent.PlayerSeen(collision.transform, true);
+				damageWait = true;
+				StartCoroutine(DamageDelay());
+				p.TakeSomeHurts(damage);
+			}
         }
     }
 
+	public void OnTriggerExit2D(Collider2D col)
+	{
+		if (col.CompareTag("Player"))
+		{
+			parent.PlayerSeen(col.transform, false);
+		}
+
+	}
 	public void Die()
     {
-		GameObject parent = transform.parent.gameObject;
-		parent.GetComponent<NPCBehavior>().enabled = false;
-		parent.GetComponent<SpriteRenderer>().sprite = death;
+		GameObject par = transform.parent.gameObject;
+		GameObject coin = Instantiate(dropOnDeath);
+        coin.transform.position = transform.position;
+		par.transform.rotation = Quaternion.identity;
+		Destroy(parent);
+		Destroy(par.GetComponent<Rigidbody2D>());
+		par.GetComponent<SpriteRenderer>().sprite = death;
 		gameObject.GetComponent<SpriteRenderer>().enabled = false;
-		StartCoroutine(DelayDie(parent));
+		StartCoroutine(DelayDie(par));
     }
 
 	IEnumerator DelayDie(GameObject parent)

@@ -6,11 +6,14 @@ public class NPCBehavior : MovableObject
 {
 
     private bool isWaiting = false;
-	public Vector2 moveRange = new Vector2(2.5f,2.5f);
+    private bool seesPlayer = false;
+	  private Transform player;
+    public float XLen, YLen;
+
     IEnumerator Wait(float time)
     {
 
-        Vector2 newMovePos = new Vector2(Random.Range(0f, moveRange.x), Random.Range(0f, moveRange.y));
+        Vector2 newMovePos = new Vector2(Random.Range(0f, XLen), Random.Range(0f, YLen));
         yield return new WaitForSeconds(time);
         SetLookDir((newMovePos - GetGameObjectPos(moveObject.gameObject)).normalized);
         yield return new WaitForSeconds(time);
@@ -18,11 +21,22 @@ public class NPCBehavior : MovableObject
         isWaiting = false;
     }
 
+	public void PlayerSeen(Transform tf, bool sees)
+	{
+		seesPlayer = sees;
+		player = tf;
+	}
+
     // Start is called before the first frame update
     public override void Start()
     {
         Init(gameObject.GetComponent<Rigidbody2D>());
         moveAffectsLook = true;
+        GameObject grid = transform.parent.GetComponentInChildren<Grid>().gameObject;
+        grid.GetComponent<SpriteRenderer>().enabled = false;
+        XLen = grid.transform.localScale.x;
+        YLen = grid.transform.localScale.y;
+        gameObject.GetComponent<Rigidbody2D>().MovePosition(new Vector2(grid.transform.position.x+(XLen*0.5f), grid.transform.position.y + (YLen*0.5f)));
     }
 
     public new Vector2 GetGameObjectPos(GameObject gameObject)
@@ -66,19 +80,25 @@ public class NPCBehavior : MovableObject
     // Update is called once per frame
     public override void Update()
     {
-        //Debug.Log(GetGameObjectPos(moveObject.gameObject));
-        if ((movePos - GetGameObjectPos(moveObject.gameObject)).magnitude < moveDeadZone)
-        {
-            movePos = new Vector2(0, 0);
-        }
-        if (movePos.magnitude == 0 && !isWaiting)
-        {
-            
-            isWaiting = true;
-            StartCoroutine(Wait(1));
-            
-        }
-        MoveUpdate();
-    }
+		if (seesPlayer)
+		{
+			lookDir = new Vector2(-transform.position.x + player.position.x,-transform.position.y + player.position.y);
+			moveObject.MoveRotation(Mathf.Rad2Deg * Mathf.Atan2(-lookDir.x, lookDir.y));
+		}
+		else
+		{
+			if ((movePos - GetGameObjectPos(moveObject.gameObject)).magnitude < moveDeadZone)
+			{
+				movePos = new Vector2(0, 0);
+			}
+			if (movePos.magnitude == 0 && !isWaiting)
+			{
+				isWaiting = true;
+				StartCoroutine(Wait(1));
+
+			}
+			MoveUpdate();
+		}
+	}
 
 }
