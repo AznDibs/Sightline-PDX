@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class SeePersonScript : MonoBehaviour
 {
-	public GameObject deatheffect;
+	public Sprite death;
 
     public void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-			Debug.Log("here");
 			Player p = collision.gameObject.GetComponent<Player>();
-			Debug.Log(p.fingerCircleOut + " " + p.canAndWillFingerCircle);
 			if(p.fingerCircleOut && p.canAndWillFingerCircle)
 			{
 				Die();
@@ -22,19 +20,16 @@ public class SeePersonScript : MonoBehaviour
 
 	public void Die()
     {
-		Instantiate(deatheffect,GameObject.Find("Main Camera").transform);
-		Destroy(transform.parent.gameObject);
+		GameObject parent = transform.parent.gameObject;
+		parent.GetComponent<NPCBehavior>().enabled = false;
+		parent.GetComponent<SpriteRenderer>().sprite = death;
+		gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		StartCoroutine(DelayDie(parent));
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	IEnumerator DelayDie(GameObject parent)
+	{
+		yield return new WaitForSeconds(1);
+		Destroy(parent);
+	}
 }
