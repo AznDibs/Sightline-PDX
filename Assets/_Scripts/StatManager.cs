@@ -43,11 +43,12 @@ public class StatManager : MonoBehaviour
 
     void Start()
     {
-		DontDestroyOnLoad(this);
 		if (statManager == null) statManager = this;
 		else Destroy(this);
-		
-    }
+
+		DontDestroyOnLoad(this);
+
+	}
 
 	void Update()
 	{
