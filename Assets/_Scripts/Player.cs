@@ -65,7 +65,7 @@ public class Player : MovableObject
 			}
 			if(stamina == 0)
 			{
-				stamina = -3;
+				stamina = -2;
 				fingerCircleOut = false;
 			}
 		}
