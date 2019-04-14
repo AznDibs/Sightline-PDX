@@ -62,7 +62,7 @@ public class NPCBehavior : MovableObject
     // Update is called once per frame
     public override void Update()
     {
-        Debug.Log(GetGameObjectPos(moveObject.gameObject));
+        //Debug.Log(GetGameObjectPos(moveObject.gameObject));
         if ((movePos - GetGameObjectPos(moveObject.gameObject)).magnitude < moveDeadZone)
         {
             movePos = new Vector2(0, 0);
