@@ -6,10 +6,11 @@ public class NPCBehavior : MovableObject
 {
 
     private bool isWaiting = false;
+	private bool seesPlayer = false;
+	private Transform player;
 	public Vector2 moveRange = new Vector2(2.5f,2.5f);
     IEnumerator Wait(float time)
     {
-
         Vector2 newMovePos = new Vector2(Random.Range(0f, moveRange.x), Random.Range(0f, moveRange.y));
         yield return new WaitForSeconds(time);
         SetLookDir((newMovePos - GetGameObjectPos(moveObject.gameObject)).normalized);
@@ -17,6 +18,12 @@ public class NPCBehavior : MovableObject
         SetMovePos(newMovePos);
         isWaiting = false;
     }
+
+	public void PlayerSeen(Transform tf, bool sees)
+	{
+		seesPlayer = sees;
+		player = tf;
+	}
 
     // Start is called before the first frame update
     public override void Start()
@@ -66,19 +73,25 @@ public class NPCBehavior : MovableObject
     // Update is called once per frame
     public override void Update()
     {
-        //Debug.Log(GetGameObjectPos(moveObject.gameObject));
-        if ((movePos - GetGameObjectPos(moveObject.gameObject)).magnitude < moveDeadZone)
-        {
-            movePos = new Vector2(0, 0);
-        }
-        if (movePos.magnitude == 0 && !isWaiting)
-        {
-            
-            isWaiting = true;
-            StartCoroutine(Wait(1));
-            
-        }
-        MoveUpdate();
-    }
+		if (seesPlayer)
+		{
+			lookDir = new Vector2(-transform.position.x + player.position.x,-transform.position.y + player.position.y);
+			moveObject.MoveRotation(Mathf.Rad2Deg * Mathf.Atan2(-lookDir.x, lookDir.y));
+		}
+		else
+		{
+			if ((movePos - GetGameObjectPos(moveObject.gameObject)).magnitude < moveDeadZone)
+			{
+				movePos = new Vector2(0, 0);
+			}
+			if (movePos.magnitude == 0 && !isWaiting)
+			{
+				isWaiting = true;
+				StartCoroutine(Wait(1));
+
+			}
+			MoveUpdate();
+		}
+	}
 
 }
