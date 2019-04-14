@@ -6,7 +6,7 @@ public class Disappear : MonoBehaviour
 {
 	IEnumerator DieDelay()
 	{
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.1f);
 		Destroy(gameObject);
 	}
     // Start is called before the first frame update
