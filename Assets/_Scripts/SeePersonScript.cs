@@ -51,7 +51,8 @@ public class SeePersonScript : MonoBehaviour
 	public void Die()
     {
 		GameObject par = transform.parent.gameObject;
-		Instantiate(dropOnDeath);
+		GameObject coin = Instantiate(dropOnDeath);
+        coin.transform.position = transform.position;
 		par.transform.rotation = Quaternion.identity;
 		Destroy(parent);
 		Destroy(par.GetComponent<Rigidbody2D>());
