@@ -17,8 +17,6 @@ public class Player : MovableObject
 	public float maxStamina = 10f;
 	public float stamina = 10f;
 
-	public ArrayList items;
-
 	public float maxMoney = 1000000f;
 	public float money = 0;
 
@@ -43,11 +41,13 @@ public class Player : MovableObject
 
 	public void GiveItem(int ID)
 	{
-		items.Add(ID);
+		StatManager.statManager.Items.Add(ID);
 	}
 	
 	public override void Start()
     {
+		StatManager.statManager.SetPlayer(this);
+		if (StatManager.statManager.beenSet) StatManager.statManager.SetPlayerValues();
 		Init(gameObject.GetComponent<Rigidbody2D>());
 		StartCoroutine(regenerate());
 		slider.maxValue = maxStamina;

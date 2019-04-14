@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StatManager : MonoBehaviour
 {
 	public static StatManager statManager;
 	// Start is called before the first frame update
 
-	public ArrayList RequiredItems;
+	public List<int> RequiredItems = new List<int>();
 
+	public bool beenSet = false;
 
-	ArrayList Items;
+	public List<int> Items = new List<int>();
 	float money;
 	float health;
 	float stamina;
@@ -28,8 +30,7 @@ public class StatManager : MonoBehaviour
 		money = p.money;
 		health = p.health;
 		stamina = p.stamina;
-		Items = p.items;
-
+		beenSet = true;
 	}
 
 	public void SetPlayerValues()
@@ -38,15 +39,14 @@ public class StatManager : MonoBehaviour
 		p.money = money;
 		p.health = health;
 		p.stamina = stamina;
-		p.items = Items;
-
 	}
 
     void Start()
     {
-		if (statManager != null) statManager = this;
-		else Destroy(this);
 		DontDestroyOnLoad(this);
+		if (statManager == null) statManager = this;
+		else Destroy(this);
+		
     }
 
 	void Update()
@@ -54,7 +54,15 @@ public class StatManager : MonoBehaviour
 		bool flag = true;
 		foreach(var elm in RequiredItems)
 		{
-			if (!Items.Contains(elm)) flag = false;
+			if (!Items.Contains(elm))
+			{
+				flag = false;
+			}
+		}
+		if(flag == true)
+		{
+			SceneManager.LoadScene(3);
+			Destroy(gameObject);
 		}
 	}
 }
