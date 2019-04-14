@@ -33,10 +33,9 @@ public class NPCBehavior : MovableObject
         Init(gameObject.GetComponent<Rigidbody2D>());
         moveAffectsLook = true;
         GameObject grid = transform.parent.GetComponentInChildren<Grid>().gameObject;
-        //grid.GetComponent<SpriteRenderer>().enabled = false;
+        grid.GetComponent<SpriteRenderer>().enabled = false;
         XLen = grid.transform.localScale.x;
         YLen = grid.transform.localScale.y;
-        Debug.Log(XLen);
         gameObject.GetComponent<Rigidbody2D>().MovePosition(new Vector2(grid.transform.position.x+(XLen*0.5f), grid.transform.position.y + (YLen*0.5f)));
     }
 
