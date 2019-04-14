@@ -6,11 +6,12 @@ public class NPCBehavior : MovableObject
 {
 
     private bool isWaiting = false;
-	public Vector2 moveRange = new Vector2(2.5f,2.5f);
+    public float XLen, YLen;
+
     IEnumerator Wait(float time)
     {
 
-        Vector2 newMovePos = new Vector2(Random.Range(0f, moveRange.x), Random.Range(0f, moveRange.y));
+        Vector2 newMovePos = new Vector2(Random.Range(0f, XLen), Random.Range(0f, YLen));
         yield return new WaitForSeconds(time);
         SetLookDir((newMovePos - GetGameObjectPos(moveObject.gameObject)).normalized);
         yield return new WaitForSeconds(time);
@@ -23,6 +24,10 @@ public class NPCBehavior : MovableObject
     {
         Init(gameObject.GetComponent<Rigidbody2D>());
         moveAffectsLook = true;
+        transform.parent.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        XLen = transform.parent.transform.localScale.x;
+        YLen = transform.parent.transform.localScale.y;
+        transform.localPosition.Set(XLen * 0.5f, YLen * 0.5f, 0);
     }
 
     public new Vector2 GetGameObjectPos(GameObject gameObject)
