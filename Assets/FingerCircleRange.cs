@@ -7,6 +7,7 @@ public class FingerCircleRange : MonoBehaviour
 	public Player p;
     void Start()
     {
+		p = GameObject.Find("Player").GetComponent<Player>();
 		if (p == null) Destroy(this);
     }
 
