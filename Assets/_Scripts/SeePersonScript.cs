@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SeePersonScript : MonoBehaviour
 {
+	public GameObject dropOnDeath;
 	public Sprite death;
 	public float damage = 10f;
 	private bool damageWait = false;
@@ -50,7 +51,10 @@ public class SeePersonScript : MonoBehaviour
 	public void Die()
     {
 		GameObject par = transform.parent.gameObject;
+		Instantiate(dropOnDeath);
+		par.transform.rotation = Quaternion.identity;
 		Destroy(parent);
+		Destroy(par.GetComponent<Rigidbody2D>());
 		par.GetComponent<SpriteRenderer>().sprite = death;
 		gameObject.GetComponent<SpriteRenderer>().enabled = false;
 		StartCoroutine(DelayDie(par));

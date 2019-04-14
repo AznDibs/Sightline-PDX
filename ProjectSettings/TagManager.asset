@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Fire
   - NPC
-  - Grid
+  - Money
   layers:
   - Default
   - TransparentFX

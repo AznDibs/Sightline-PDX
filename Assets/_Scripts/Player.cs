@@ -8,12 +8,19 @@ public class Player : MovableObject
 {
 	public Slider slider;
 	public Slider healthSlider;
+	public Slider moneySlider;
+
 	public GameObject finger;
 	public bool canAndWillFingerCircle = false;
 	public bool fingerCircleOut = false;
 
 	public float maxStamina = 10f;
 	public float stamina = 10f;
+
+	public ArrayList items;
+
+	public float maxMoney = 1000000f;
+	public float money = 0;
 
 	public float maxHealth = 100f;
 	public float health = 100f;
@@ -27,15 +34,30 @@ public class Player : MovableObject
 		health -= f;
 		healthSlider.value = health;
 	}
+
+	public void GiveMoney(float amount)
+	{
+		money += amount;
+		moneySlider.value = money;
+	}
+
+	public void GiveItem(int ID)
+	{
+		items.Add(ID);
+	}
 	
 	public override void Start()
     {
 		Init(gameObject.GetComponent<Rigidbody2D>());
 		StartCoroutine(regenerate());
 		slider.maxValue = maxStamina;
+
 		healthSlider.maxValue = maxHealth;
-		finger.SetActive(false);
-		
+		healthSlider.value = health;
+
+		moneySlider.maxValue = maxMoney;
+		moneySlider.value = money;
+		finger.SetActive(false);	
     }
 
     // Update is called once per frame
