@@ -15,4 +15,9 @@ public class OnClick : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
