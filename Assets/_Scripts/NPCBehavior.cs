@@ -24,10 +24,12 @@ public class NPCBehavior : MovableObject
     {
         Init(gameObject.GetComponent<Rigidbody2D>());
         moveAffectsLook = true;
-        transform.parent.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        XLen = transform.parent.transform.localScale.x;
-        YLen = transform.parent.transform.localScale.y;
-        transform.localPosition.Set(XLen * 0.5f, YLen * 0.5f, 0);
+        GameObject grid = transform.parent.GetComponentInChildren<Grid>().gameObject;
+        //grid.GetComponent<SpriteRenderer>().enabled = false;
+        XLen = grid.transform.localScale.x;
+        YLen = grid.transform.localScale.y;
+        Debug.Log(XLen);
+        gameObject.GetComponent<Rigidbody2D>().MovePosition(new Vector2(grid.transform.position.x+(XLen*0.5f), grid.transform.position.y + (YLen*0.5f)));
     }
 
     public new Vector2 GetGameObjectPos(GameObject gameObject)
