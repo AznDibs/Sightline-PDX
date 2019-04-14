@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3265522895698215350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0, z: 0}
+  m_LocalPosition: {x: -0.63, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 3265522896741927645}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 3265522896645532446}
   - component: {fileID: 3265522896645532449}
   m_Layer: 0
-  m_Name: Space
+  m_Name: AISpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 3265522896645532448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 3265522896741927645}
   m_Father: {fileID: 0}
@@ -227,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 3265522896741927646}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16666666, y: 0.16666666, z: 0.2}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.2}
   m_Children:
   - {fileID: 3265522895698215351}
   m_Father: {fileID: 3265522896645532446}
